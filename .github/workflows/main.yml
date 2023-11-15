@@ -77,7 +77,7 @@ jobs:
 
     - name: install datahub helm repo 
       run: |   
-        helm upgrade --install prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/
+        helm upgrade --install prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/Chart.yaml
 
     - name: check the pods
       run: |
