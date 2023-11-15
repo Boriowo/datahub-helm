@@ -47,4 +47,6 @@ jobs:
       uses: helm/chart-releaser-action@v1.2.1
       with:
         charts_repo_url: https://helm.datahubproject.io
-        
+      env:
+        CR_TOKEN: "${{ secrets.AWS_GITHUB_TOKEN }}"
+         
