@@ -27,12 +27,12 @@ elasticsearch:
       memory: "1024M"
 
   # # Request smaller persistent volumes.
-  # volumeClaimTemplate:
-  #   accessModes: ["ReadWriteOnce"]
-  #   storageClassName: "standard"
-  #   resources:
-  #     requests:
-  #       storage: 100M
+   volumeClaimTemplate:
+     accessModes: ["ReadWriteOnce"]
+     storageClassName: "standard"
+     resources:
+       requests:
+         storage: 100M
 
 # Official neo4j chart, supports both community and enterprise editions
 # see https://neo4j.com/docs/operations-manual/current/kubernetes/ for more information
