@@ -37,7 +37,7 @@ jobs:
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name HL7-dev-eks
-      
+
     - name: Add Helm repos
       run: |
         helm repo add elasticsearch https://helm.elastic.co
@@ -53,3 +53,21 @@ jobs:
       env:
         CR_TOKEN: "${{ secrets.AWS_GITHUB_TOKEN }}"
          
+    - name: Insert Helm Secrets
+      run: |
+        kubectl create secret generic mysql-secrets --from-literal=mysql-root-password=datahub
+        kubectl create secret generic neo4j-secrets --from-literal=neo4j-password=datahub --from-literal=NEO4J_AUTH=neo4j/datahub
+
+    - name: Add datahub helm repo 
+      run: |
+        helm repo add datahub https://helm.datahubproject.io/
+
+    - name: install datahub helm repo 
+      run: |   
+        helm install prerequisites datahub/datahub-prerequisites
+
+    - name: check the pods
+      run: |
+        kubectl get pods
+    
+    
