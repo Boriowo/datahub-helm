@@ -1,0 +1,50 @@
+name: Release Charts
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v2.0
+      with:
+        version: 'v1.24.0' # default is latest stable
+      id: install
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: v3.4.0
+
+    - name: Add Helm repos
+      run: |
+        helm repo add elasticsearch https://helm.elastic.co
+        helm repo add neo4j https://helm.neo4j.com/neo4j
+        helm repo add mysql https://charts.bitnami.com/bitnami
+        helm repo add cp-helm-charts https://confluentinc.github.io/cp-helm-charts
+        helm repo add kafka https://charts.bitnami.com/bitnami
+          
+    - name: Run chart-releaser
+      uses: helm/chart-releaser-action@v1.2.1
+      with:
+        charts_repo_url: https://helm.datahubproject.io
+        
