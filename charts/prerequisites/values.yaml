@@ -26,7 +26,6 @@ elasticsearch:
       cpu: "1000m"
       memory: "1024M"
 
-
    volumeClaimTemplate:
      accessModes: ["ReadWriteOnce"]
      storageClassName: "standard"
