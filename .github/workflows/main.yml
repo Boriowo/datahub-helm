@@ -70,14 +70,14 @@ jobs:
       if: steps.check_secrets.outputs.neo4j_secret_exist == ''
       run: |
         kubectl create secret generic neo4j-secrets --from-literal=neo4j-password=datahub --from-literal=NEO4J_AUTH=neo4j/datahub
-        
+
     - name: Add datahub helm repo 
       run: |
         helm repo add datahub https://helm.datahubproject.io/
 
     - name: install datahub helm repo 
       run: |   
-        hhelm install prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml
+        helm install prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml
 
     - name: check the pods
       run: |
