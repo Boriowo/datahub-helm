@@ -28,7 +28,7 @@ elasticsearch:
 
    volumeClaimTemplate:
      accessModes: ["ReadWriteOnce"]
-     storageClassName: "standard"
+     storageClassName: "WaitForFirstConsumer"
      resources:
        requests:
          storage: 100M
