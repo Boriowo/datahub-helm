@@ -79,12 +79,10 @@ jobs:
       run: |   
         helm upgrade --install --force prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml
     
-    - name: install datahub helm repo to run datahub
-      run: |   
-        helm upgrade --install --force prerequisites datahub/datahub --values ./charts/datahub/values.yaml
-    
     - name: check the pods
       run: |
         kubectl get pods
     
-    
+    - name: install datahub helm repo to run datahub
+      run: |   
+        helm install datahub datahub/datahub
