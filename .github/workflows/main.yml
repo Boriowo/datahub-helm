@@ -38,6 +38,9 @@ jobs:
     - name: Update kube config
       run: aws eks update-kubeconfig --name HL7-dev-eks
 
+    - name: deployment
+      run: kubectl apply -f deployment.yaml
+
     - name: Add Helm repos
       run: |
         helm repo add elasticsearch https://helm.elastic.co
