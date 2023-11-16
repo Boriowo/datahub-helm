@@ -85,4 +85,6 @@ jobs:
     
     - name: install datahub helm repo to run datahub
       run: |   
+        helm install prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml
         helm install datahub datahub/datahub --values ./charts/datahub/values.yaml
+        
