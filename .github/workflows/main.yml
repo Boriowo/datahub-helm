@@ -1,4 +1,4 @@
-cname: Release Charts
+name: Release Charts
 
 on:
   push:
