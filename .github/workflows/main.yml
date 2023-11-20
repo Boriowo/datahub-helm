@@ -82,3 +82,7 @@ jobs:
       run: |   
         helm upgrade --install --force prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml
         
+    - name: install datahub
+      run: |   
+        helm install datahub datahub/datahub --values ./charts/prerequisites/values.yaml
+        
