@@ -76,7 +76,7 @@ jobs:
 
     - name: Add datahub helm repo 
       run: |
-        helm repo add datahub https://github.com/Boriowo/datahub-helm.git
+        helm repo add datahub-helm https://github.com/Boriowo/datahub-helm.git
 
     - name: install datahub helm repo 
       run: |   
