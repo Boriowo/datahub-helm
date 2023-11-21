@@ -41,6 +41,9 @@ jobs:
     - name: deployment
       run: kubectl apply -f deployment.yaml
 
+    - name: deployment
+      run: sudo yum install openssl
+
     - name: Add Helm repos
       run: |
         helm repo add elasticsearch https://helm.elastic.co
@@ -52,7 +55,7 @@ jobs:
     - name: Run chart-releaser
       uses: helm/chart-releaser-action@v1.2.1
       with:
-        charts_repo_url: https://helm.datahubproject.io
+        charts_repo_url: https://github.com/Boriowo/datahub-helm.git
       env:
         CR_TOKEN: "${{ secrets.AWS_GITHUB_TOKEN }}"
          
