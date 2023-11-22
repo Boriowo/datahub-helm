@@ -60,20 +60,13 @@ jobs:
     - name: Check if secrets exist
       id: check_secrets
       run: |
-        mysql_secret_exist=$(kubectl get secret mysql-secrets -o name --ignore-not-found)
-        neo4j_secret_exist=$(kubectl get secret neo4j-secrets -o name --ignore-not-found)
-        echo "::set-output name=mysql_secret_exist::$mysql_secret_exist"
-        echo "::set-output name=neo4j_secret_exist::$neo4j_secret_exist"
+        postgresql_secret_exist=$(kubectl get secret postgresql-secrets -o name --ignore-not-found)
+        echo "::set-output name=postgresql_secret_exist::$postgresql_secret_exist"
 
-    - name: Create MySQL secret if it doesn't exist
-      if: steps.check_secrets.outputs.mysql_secret_exist == ''
+    - name: Create PostgreSQL secret if it doesn't exist
+      if: steps.check_secrets.outputs.postgresql_secret_exist == ''
       run: |
-        kubectl create secret generic mysql-secrets --from-literal=mysql-root-password=datahub
-        
-    - name: Create Neo4j secret if it doesn't exist
-      if: steps.check_secrets.outputs.neo4j_secret_exist == ''
-      run: |
-        kubectl create secret generic neo4j-secrets --from-literal=neo4j-password=datahub --from-literal=NEO4J_AUTH=neo4j/datahub
+        kubectl create secret generic postgresql-secrets --from-literal=postgresql-password=datahub
 
     - name: Add datahub helm repo 
       run: |
