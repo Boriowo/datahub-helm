@@ -52,7 +52,8 @@ jobs:
     - name: Run chart-releaser
       uses: helm/chart-releaser-action@v1.2.1
       with:
-        charts_repo_url: https://github.com/Boriowo/datahub-helm.git
+        charts_repo_url: https://linkedin.github.io/datahub/charts
+
       env:
         CR_TOKEN: "${{ secrets.AWS_GITHUB_TOKEN }}"
          
@@ -76,7 +77,7 @@ jobs:
 
     - name: Add datahub helm repo 
       run: |
-        helm repo add datahub-helm https://github.com/Boriowo/datahub-helm.git
+        helm repo add datahub https://linkedin.github.io/datahub/charts
 
     - name: install datahub helm repo 
       run: |   
