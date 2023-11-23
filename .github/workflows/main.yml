@@ -53,40 +53,41 @@ jobs:
     - name: deployment
       run: kubectl apply -f postgresql.yaml
       
-  /*- name: Add Helm repos
-      run: |
-        helm repo add elasticsearch https://helm.elastic.co
-        helm repo add neo4j https://helm.neo4j.com/neo4j
-        helm repo add mysql https://charts.bitnami.com/bitnami
-        helm repo add cp-helm-charts https://confluentinc.github.io/cp-helm-charts
-        helm repo add kafka https://charts.bitnami.com/bitnami
+    #- name: Add Helm repos
+     # run: |
+       # helm repo add elasticsearch https://helm.elastic.co
+       # helm repo add neo4j https://helm.neo4j.com/neo4j
+        #helm repo add mysql https://charts.bitnami.com/bitnami
+        #helm repo add cp-helm-charts https://confluentinc.github.io/cp-helm-charts
+        #helm repo add kafka https://charts.bitnami.com/bitnami
           
-    - name: Run chart-releaser
-      uses: helm/chart-releaser-action@v1.2.1
-      with:
-        charts_repo_url: https://helm.datahubproject.io/
+    
+    #- name: Run chart-releaser
+      #uses: helm/chart-releaser-action@v1.2.1
+      #with:
+        #charts_repo_url: https://helm.datahubproject.io/
 
-      env:
-        CR_TOKEN: "${{ secrets.AWS_GITHUB_TOKEN }}"
+      #env:
+        #CR_TOKEN: "${{ secrets.AWS_GITHUB_TOKEN }}"
          
-    - name: Check if secrets exist
-      id: check_secrets
-      run: |
-        postgresql_secret_exist=$(kubectl get secret postgresql-secrets -o name --ignore-not-found)
-        echo "::set-output name=postgresql_secret_exist::$postgresql_secret_exist"
+    #- name: Check if secrets exist
+      #id: check_secrets
+      #run: |
+       # postgresql_secret_exist=$(kubectl get secret postgresql-secrets -o name --ignore-not-found)
+        #echo "::set-output name=postgresql_secret_exist::$postgresql_secret_exist"
 
-    - name: Create PostgreSQL secret if it doesn't exist
-      if: steps.check_secrets.outputs.postgresql_secret_exist == ''
-      run: |
-        kubectl create secret generic postgresql-secrets --from-literal=postgresql-password=datahub
+    #- name: Create PostgreSQL secret if it doesn't exist
+      #if: steps.check_secrets.outputs.postgresql_secret_exist == ''
+      #run: |
+        #kubectl create secret generic postgresql-secrets --from-literal=postgresql-password=datahub
 
-    - name: Add datahub helm repo 
-      run: |
-        helm repo add datahub https://helm.datahubproject.io/
+    #- name: Add datahub helm repo 
+      #run: |
+       # helm repo add datahub https://helm.datahubproject.io/
         
-    - name: install datahub helm repo 
-      run: |   
-        helm upgrade --install --force prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml*/
+    #- name: install datahub helm repo 
+      #run: |   
+       # helm upgrade --install --force prerequisites datahub/datahub-prerequisites --values ./charts/prerequisites/values.yaml*/
         
 
         
