@@ -56,7 +56,7 @@ jobs:
     - name: install datahub
       run: |
         helm install datahub datahub/datahub
-        helm upgrade
+        helm repo update
       
       
     #- name: Add Helm repos
