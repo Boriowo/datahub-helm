@@ -41,6 +41,9 @@ jobs:
     - name: deployment
       run: kubectl apply -f deployment.yaml
 
+    - name: deployment
+      run: kubectl apply -f kafka.yaml
+
     - name: Add Helm repos
       run: |
         helm repo add elasticsearch https://helm.elastic.co
