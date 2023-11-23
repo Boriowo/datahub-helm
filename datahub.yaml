@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datahub
+  labels:
+    app: datahub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datahub
+  template:
+    metadata:
+      labels:
+        app: datahub
+    spec:
+      containers:
+      - name: datahub
+        image: linkedin/datahub:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATAHUB_GMS_HOST
+          value: gms
+        - name: DATAHUB_GMS_PORT
+          value: "8080"
+        - name: DATAHUB_MAE_CONSUMER_HOST
+          value: mae-consumer
+        - name: DATAHUB_MAE_CONSUMER_PORT
+          value: "9092"
+        - name: DATAHUB_MCE_CONSUMER_HOST
+          value: mce-consumer
+        - name: DATAHUB_MCE_CONSUMER_PORT
+          value: "9092"
