@@ -53,10 +53,8 @@ jobs:
     - name: deployment
       run: kubectl apply -f postgresql.yaml
       
-    - name: install datahub
-      run: |
-        helm install datahub datahub/datahub
-        helm repo update
+    - name: deployment
+      run: kubectl apply -f datahub.yaml
       
       
     #- name: Add Helm repos
