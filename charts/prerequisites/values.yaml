@@ -35,6 +35,16 @@ elasticsearch:
     #resources:
      # requests:
       #  storage: "100M"
+  volumeClaimTemplates:
+    - metadata:
+        name: volume-name
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Gi
+        storageClassName: default
 
 
 # Official neo4j chart, supports both community and enterprise editions
