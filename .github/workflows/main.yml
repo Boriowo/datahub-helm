@@ -49,6 +49,9 @@ jobs:
       
     - name: deployment
       run: kubectl apply -f elasticsearch.yaml
+
+    - name: deployment
+      run: kubectl apply -f postgresql.yaml
       
     - name: Add Helm repos
       run: |
