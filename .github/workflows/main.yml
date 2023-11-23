@@ -53,6 +53,11 @@ jobs:
     - name: deployment
       run: kubectl apply -f postgresql.yaml
       
+    - name: install datahub
+      run: |
+        helm install datahub datahub/datahub
+      
+      
     #- name: Add Helm repos
      # run: |
        # helm repo add elasticsearch https://helm.elastic.co
