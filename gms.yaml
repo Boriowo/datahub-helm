@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: datahub-gms
-        image: linkedin/datahub-gms:debug
+        image: linkedin/datahub-gms:head
         env:
         - name: DATAHUB_GMS_ELASTICSEARCH_HOST
           value: elasticsearch-host
