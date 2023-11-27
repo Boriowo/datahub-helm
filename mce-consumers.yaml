@@ -1,0 +1,41 @@
+# mce-consumer.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mce-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mce-consumer
+  template:
+    metadata:
+      labels:
+        app: mce-consumer
+    spec:
+      containers:
+      - name: mce-consumer
+        image: <mce-consumer-image>:<version> # Replace with the appropriate image and version
+        env:
+        - name: KAFKA_BROKER
+          value: "<kafka-broker-url>" # Specify the Kafka broker URL
+        - name: GROUP_ID
+          value: "<consumer-group-id>" # Specify the consumer group ID
+        - name: SCHEMA_REGISTRY_URL
+          value: "<schema-registry-url>" # Specify the Schema Registry URL
+        # Add other necessary environment variables
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mce-consumer-service
+spec:
+  selector:
+    app: mce-consumer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
