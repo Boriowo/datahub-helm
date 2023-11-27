@@ -35,7 +35,7 @@ metadata:
   name: zookeeper
 spec:
   serviceName: "zookeeper-service"
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: zookeeper
@@ -83,7 +83,7 @@ kind: Deployment
 metadata:
   name: kafka
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: kafka
