@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: datahub-frontend
-        image: linkedin/datahub-frontend:debug
+        image: linkedin/datahub-frontend-react:head
         ports:
         - containerPort: 9002
