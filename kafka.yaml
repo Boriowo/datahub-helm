@@ -1,11 +1,89 @@
+# zookeeper-deployment.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-service
+spec:
+  ports:
+  - name: client
+    port: 2181
+    targetPort: 2181
+  clusterIP: None
+  selector:
+    app: zookeeper
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zookeeper-config
+data:
+  zoo.cfg: |
+    tickTime=2000
+    initLimit=10
+    syncLimit=5
+    dataDir=/data
+    clientPort=2181
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zookeeper
+spec:
+  serviceName: "zookeeper-service"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+      - name: zookeeper
+        image: zookeeper:3.7.0 # Use the desired Zookeeper image
+        ports:
+        - containerPort: 2181
+        volumeMounts:
+        - name: data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 1Gi
+
+# kafka-deployment.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-service
+spec:
+  ports:
+  - name: kafka
+    port: 9092
+    targetPort: 9092
+  selector:
+    app: kafka
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka
-  labels:
-    app: kafka
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: kafka
@@ -20,7 +98,13 @@ spec:
         ports:
         - containerPort: 9092
         env:
-        - name: KAFKA_ZOOKEEPER_CONNECT
-          value: zookeeper:2181
+        - name: KAFKA_BROKER_ID
+          value: "0"
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://:9092
+          value: PLAINTEXT://kafka-service:9092,PLAINTEXT_HOST://localhost:9092
+        - name: KAFKA_LISTENER_NAME
+          value: PLAINTEXT
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zookeeper-service:2181
