@@ -24,4 +24,4 @@ spec:
     name: http
   selector:
     app: datahub-frontend
-    type: Loadbalancer
+    type: LoadBalancer
