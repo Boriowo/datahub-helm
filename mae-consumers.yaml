@@ -1,0 +1,42 @@
+# mae-consumer.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mae-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mae-consumer
+  template:
+    metadata:
+      labels:
+        app: mae-consumer
+    spec:
+      containers:
+      - name: mae-consumer
+        image: <mae-consumer-image>:<version> # Replace with the appropriate image and version
+        env:
+        - name: KAFKA_BROKER
+          value: "<kafka-broker-url>" # Specify the Kafka broker URL
+        - name: GROUP_ID
+          value: "<consumer-group-id>" # Specify the consumer group ID
+        - name: SCHEMA_REGISTRY_URL
+          value: "<schema-registry-url>" # Specify the Schema Registry URL
+        # Add other necessary environment variables
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mae-consumer-service
+spec:
+  selector:
+    app: mae-consumer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
