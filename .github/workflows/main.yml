@@ -52,6 +52,12 @@ jobs:
     
     - name: deployment
       run: kubectl apply -f kafka.yaml
+
+    - name: deployment
+      run: kubectl apply -f mae-consumers.yaml
+
+    - name: deployment
+      run: kubectl apply -f mce-consumers.yaml
   
     - name: deployment
       run: kubectl apply -f elasticsearch.yaml
