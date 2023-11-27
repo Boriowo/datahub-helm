@@ -21,16 +21,16 @@ spec:
         - name: DATAHUB_GMS_ELASTICSEARCH_PORT
           value: "9200"
         - name: DATAHUB_GMS_POSTGRES_HOST
-          value: postgres-host
+          value: datahub
         - name: DATAHUB_GMS_POSTGRES_PORT
           value: "5432"
         - name: DATAHUB_GMS_POSTGRES_USERNAME
-          value: postgres-user
+          value: datahub
         - name: DATAHUB_GMS_POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgres-secrets
-              key: postgres-password
+              key: datahub
         ports:
         - containerPort: 8080
 
