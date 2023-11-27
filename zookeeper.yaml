@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
       - name: zookeeper
-        image: confluentinc/cp-zookeeper:7.4.0
+        image: bitnami/zookeeper:3.6.3
         ports:
         - containerPort: 2181
         volumeMounts:
