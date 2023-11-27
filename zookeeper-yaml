@@ -1,0 +1,63 @@
+# zookeeper-deployment.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-service
+spec:
+  ports:
+  - name: client
+    port: 2181
+    targetPort: 2181
+  clusterIP: None
+  selector:
+    app: zookeeper
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zookeeper-config
+data:
+  zoo.cfg: |
+    tickTime=2000
+    initLimit=10
+    syncLimit=5
+    dataDir=/data
+    clientPort=2181
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zookeeper
+spec:
+  serviceName: "zookeeper-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+      - name: zookeeper
+        image: confluentinc/cp-zookeeper:7.4.0
+        ports:
+        - containerPort: 2181
+        volumeMounts:
+        - name: data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 1Gi
