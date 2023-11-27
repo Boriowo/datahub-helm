@@ -19,7 +19,7 @@ spec:
         image: <mae-consumer-image>:<version> # Replace with the appropriate image and version
         env:
         - name: KAFKA_BROKER
-          value: "<kafka-broker-url>" # Specify the Kafka broker URL
+          value: PLAINTEXT://kafka-service:9092,PLAINTEXT_HOST://localhost:9092 # Specify the Kafka broker URL
         - name: GROUP_ID
           value: "<consumer-group-id>" # Specify the consumer group ID
         - name: SCHEMA_REGISTRY_URL
