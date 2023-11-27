@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
       - name: datahub-gms
-        image: linkedin/datahub-gms:head
+        image: linkedin/datahub-gms:cacddf7
         env:
         - name: DATAHUB_GMS_ELASTICSEARCH_HOST
-          value: elasticsearch-host
+          value: elasticsearch
         - name: DATAHUB_GMS_ELASTICSEARCH_PORT
           value: "9200"
         - name: DATAHUB_GMS_POSTGRES_HOST
