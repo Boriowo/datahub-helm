@@ -58,8 +58,10 @@ jobs:
 
     - name: deployment
       run: kubectl apply -f service.yaml
-      
-     
+
+    - name: deployment
+      run: kubectl apply -f datahub-frontend.yaml
+       
     #- name: Add Helm repos
      # run: |
        # helm repo add elasticsearch https://helm.elastic.co
