@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datahub-frontend
+  labels:
+    app: datahub-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datahub-frontend
+  template:
+    metadata:
+      labels:
+        app: datahub-frontend
+    spec:
+      containers:
+      - name: datahub-frontend
+        image: linkedin/datahub-frontend:debug
+        ports:
+        - containerPort: 9002
