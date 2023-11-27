@@ -20,16 +20,17 @@ spec:
           value: elasticsearch-host
         - name: DATAHUB_GMS_ELASTICSEARCH_PORT
           value: "9200"
-        - name: DATAHUB_GMS_MYSQL_HOST
-          value: mysql-host
-        - name: DATAHUB_GMS_MYSQL_PORT
-          value: "3306"
-        - name: DATAHUB_GMS_MYSQL_USERNAME
-          value: mysql-user
-        - name: DATAHUB_GMS_MYSQL_PASSWORD
+        - name: DATAHUB_GMS_POSTGRES_HOST
+          value: postgres-host
+        - name: DATAHUB_GMS_POSTGRES_PORT
+          value: "5432"
+        - name: DATAHUB_GMS_POSTGRES_USERNAME
+          value: postgres-user
+        - name: DATAHUB_GMS_POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secrets
-              key: mysql-password
+              name: postgres-secrets
+              key: postgres-password
         ports:
         - containerPort: 8080
+
