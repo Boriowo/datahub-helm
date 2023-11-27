@@ -39,14 +39,17 @@ jobs:
       run: aws eks update-kubeconfig --name HL7-dev-eks
 
     - name: deployment
-      run: kubectl apply -f deployment.yaml
+      run: kubectl apply -f gms.yaml
 
+    - name: deployment
+      run: kubectl apply -f deployment.yaml
+      
+    - name: deployment
+      run: kubectl apply -f  zookeeper.yaml
+    
     - name: deployment
       run: kubectl apply -f kafka.yaml
-
-    - name: deployment
-      run: kubectl apply -f gms.yaml
-      
+  
     - name: deployment
       run: kubectl apply -f elasticsearch.yaml
 
