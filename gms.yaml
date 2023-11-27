@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: datahub-gms
-        image: linkedin/datahub-gms:cacddf7
+        image: acryldata/datahub-actions:head
         env:
         - name: DATAHUB_GMS_ELASTICSEARCH_HOST
           value: elasticsearch
